@@ -1,0 +1,44 @@
+body{
+    background-color: #8ec001;
+}
+
+.gameboard{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+
+    border: 1px solid #8ec001;
+    padding: 10rem;
+
+    justify-content: center;
+
+    gap: 1rem;
+
+    background-color: #8ec001;
+}
+
+.title{
+    padding: 2rem;
+    border-right: 2px solid #7C0B07;
+    border-bottom: 2px solid #7C0B07;
+
+    width: 2rem;
+    height: 2rem;
+
+    margin: 0;
+
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #7C0B07;
+}
+
+#TicTacToe{
+    font-family: "Grobold", sans-serif;
+    font-size: 60px;
+    text-align: center;
+    background-color: #8ec001;
+}
+
+@font-face {
+    font-family: "Grobold";
+    src: url("fonts/GROBOLD.woff") format("woff2");
+}
