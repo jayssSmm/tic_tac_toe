@@ -29,6 +29,17 @@ body{
 
     border-radius: 10px;
     box-shadow: 1px 1px 3px #7C0B07;
+
+    background: linear-gradient(
+        to bottom,
+        #FCDE00 0%,
+        #F8B003 50%,
+        #EF5D07 100%
+    );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #TicTacToe{
@@ -41,4 +52,9 @@ body{
 @font-face {
     font-family: "Grobold";
     src: url("fonts/GROBOLD.woff") format("woff2");
+}
+
+.responsive-img{
+    width: 4rem;
+    height: 4rem;
 }
