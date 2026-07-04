@@ -1,6 +1,7 @@
 const game = (() =>{
     
     let game =[];
+    let moveCount=0;
 
     function resetGame(){
         let row=[0,0,0];
@@ -9,7 +10,7 @@ const game = (() =>{
         };
     }
 
-    function checkWin(game, marker){
+    function checkWin(marker){
         for (let i=0; i<3 ;i++){
             let Rcount=0;
             let cCount=0;
@@ -64,12 +65,16 @@ const game = (() =>{
         return false;
     }
 
+    const incMovecount = () => {
+        moveCount++;
+    }
+    const getmoveCount = () => moveCount;
 
     resetGame();
 
     const returnGame = () => game;
 
-    return {resetGame, returnGame, checkWin, makeMove}
+    return {resetGame, returnGame, checkWin, makeMove, incMovecount, getmoveCount}
 
 })();
 
@@ -78,14 +83,28 @@ const player = (marker)=>{
     this.score = 0;
 }
 
+const play = ()=>{
 
-const guava = document.createElement('img');
-guava.src='icons/guava_11807818.png'; // X
-guava.classList.add('responsive-img');
+    const water_melon = document.createElement('img');
+    water_melon.src='icons/water-melon_7783973.png'; // O
+    water_melon.classList.add('responsive-img');
 
-const water_melon = document.createElement('img');
-water_melon.src='icons/water-melon_7783973.png'; // O
-water_melon.classList.add('responsive-img');
+    let player1 = player('X');
+    let player2 = player('O');
 
-let player1 = player('X');
-let player2 = player('O');
+    document.getElementById('gameboard').addEventListener('click', (e)=>{
+        const guava = document.createElement('img');
+        guava.src='icons/guava_11807818.png'; // X
+        guava.classList.add('responsive-img');
+        
+        let title_id = e.target.id;
+        makeMove(player.marker, title_id);
+        incMovecount()
+
+        if (getmoveCount()>4)(
+            checkWin(player.marker)
+        )
+
+    })
+
+}
