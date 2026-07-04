@@ -5,10 +5,9 @@ body{
 .gameboard{
     display: grid;
     grid-template-columns: auto auto auto;
-    padding: 10px;
 
     border: 1px solid #8ec001;
-    padding: 10rem;
+    padding: 6rem 10rem 1rem 10rem;
 
     justify-content: center;
 
@@ -57,4 +56,27 @@ body{
 .responsive-img{
     width: 4rem;
     height: 4rem;
+}
+
+.ScoreBoard{
+    display: flex;
+    padding: -10rem;
+    gap: 1rem;
+
+    justify-content: center;
+}
+
+.masterScore{
+    display: flex;
+    gap: 1rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.score{
+    font-family: "Grobold", sans-serif;
+    font-size: 50px;
+    text-align: center;
+    color: #FFFFDC;
 }
