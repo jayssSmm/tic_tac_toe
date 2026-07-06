@@ -2,9 +2,10 @@ body{
     background-color: #8ec001;
 }
 
-.gameboard{
+#gameboard{
     display: grid;
     grid-template-columns: auto auto auto;
+    grid-template-rows: repeat(3, 1fr);
 
     border: 1px solid #8ec001;
     padding: 6rem 10rem 1rem 10rem;
