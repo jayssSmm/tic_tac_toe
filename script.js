@@ -93,12 +93,16 @@ const game = (() =>{
         gameOver=1;
     }
 
-    return {resetGame, returnGame, checkWin, makeMove, incMovecount, getmoveCount, getFlag, alterFlag, checkGameOver, makeGameOver}
+    const removeGameOver = () =>{
+        gameOver=0;
+    }
+
+    return {resetGame, returnGame, checkWin, makeMove, incMovecount, getmoveCount, getFlag, alterFlag, checkGameOver, makeGameOver, removeGameOver}
 
 })();
 
 const player = (marker)=>{
-    score = 0;
+    let score = 0;
     const incScore = () => score++;
     const getScore = () => score;
 
@@ -151,6 +155,16 @@ const play = (()=>{
                 return;
             }
         }
+
+        document.getElementById('reset').addEventListener('click', (e)=>{
+            game.resetGame();
+            game.removeGameOver();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card=>{
+                card.innerHTML='';
+            })
+        })
 
     })
 

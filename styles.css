@@ -8,13 +8,20 @@ body{
     grid-template-rows: repeat(3, 1fr);
 
     border: 1px solid #8ec001;
-    padding: 6rem 10rem 1rem 10rem;
+    padding: 3rem 10rem 1rem 10rem;
 
     justify-content: center;
 
     gap: 1rem;
 
     background-color: #8ec001;
+}
+
+#reset{
+    margin-left: auto;
+    margin-right: auto;
+    width: 8rem;
+    color: black;
 }
 
 .title{
