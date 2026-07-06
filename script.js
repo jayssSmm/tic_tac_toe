@@ -2,6 +2,7 @@ const game = (() =>{
     
     let game =[];
     let moveCount=0;
+    let flag = 0;
 
     function resetGame(){
         let row=[0,0,0];
@@ -9,6 +10,16 @@ const game = (() =>{
             game.push(row)
         };
     }
+
+    function alterFlag(){
+        if (flag){
+            flag=0;
+        }else{
+            flag=1
+        }
+    }
+
+    const getFlag = () => {return flag;}
 
     function checkWin(marker){
         for (let i=0; i<3 ;i++){
@@ -25,7 +36,7 @@ const game = (() =>{
             if (Rcount==3){
                 return true;
             }
-            elif (cCount==3)
+            else if(cCount==3)
             {
                 return true;
             }
@@ -38,7 +49,7 @@ const game = (() =>{
             if (game[i][i]==marker){
                 dcount++;
             }
-            elif (game[j][i]==marker)
+            else if (game[j][i]==marker)
             {
                 iCount++;
             }
@@ -74,7 +85,7 @@ const game = (() =>{
 
     const returnGame = () => game;
 
-    return {resetGame, returnGame, checkWin, makeMove, incMovecount, getmoveCount}
+    return {resetGame, returnGame, checkWin, makeMove, incMovecount, getmoveCount, getFlag, alterFlag}
 
 })();
 
@@ -83,28 +94,43 @@ const player = (marker)=>{
     this.score = 0;
 }
 
-const play = ()=>{
+const play = (()=>{
 
-    const water_melon = document.createElement('img');
-    water_melon.src='icons/water-melon_7783973.png'; // O
-    water_melon.classList.add('responsive-img');
+    let player1 = player('X'); // 1
+    let player2 = player('O'); // 0
 
-    let player1 = player('X');
-    let player2 = player('O');
+    let gameboard = document.getElementById('gameboard')
 
     document.getElementById('gameboard').addEventListener('click', (e)=>{
-        const guava = document.createElement('img');
-        guava.src='icons/guava_11807818.png'; // X
-        guava.classList.add('responsive-img');
-        
-        let title_id = e.target.id;
-        makeMove(player.marker, title_id);
-        incMovecount()
 
-        if (getmoveCount()>4)(
-            checkWin(player.marker)
-        )
+        let block = e.target;
+        let title_id = block.id;
+/*
+        console.log(block)
+        console.log( block.hasChildNodes())*/
+        if (!(block.hasChildNodes()) && block.tagName!='IMG'){
+            if (game.getFlag()){
+                const guava = document.createElement('img');
+                guava.src='icons/guava_11807818.png'; // X // 1
+                guava.classList.add('responsive-img'); 
+                
+                block.appendChild(guava);
+                console.log(block);
+            }else{
+                const water_melon = document.createElement('img');
+                water_melon.src='icons/water-melon_7783973.png'; // O // 0
+                water_melon.classList.add('responsive-img');
+
+                block.appendChild(water_melon);
+            }
+            game.alterFlag()
+            game.incMovecount()
+        }
+
+        if (game.getmoveCount()>4){
+            game.checkWin(player.marker)
+        }
 
     })
 
-}
+})()
