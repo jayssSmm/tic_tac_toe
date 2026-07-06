@@ -3,11 +3,12 @@ const game = (() =>{
     let game =[];
     let moveCount=0;
     let flag = 0;
+    let gameOver = 0;
 
     function resetGame(){
-        let row=[0,0,0];
+        game=[];
         for (let i=0; i<3 ;i++){
-            game.push(row)
+            game.push([0, 0, 0])
         };
     }
 
@@ -67,9 +68,10 @@ const game = (() =>{
     }
 
     const makeMove = (player, title_id) =>{
-        let x = Math.floor((title_id-1)/3);
-        let y = (title_id-1) % 3;
-        if (isEmpty(x, y)){
+        id = Number(title_id)
+        let x = Math.floor((id-1)/3);
+        let y = (id-1) % 3;
+        if (!(isEmpty(x, y))){
             game[x][y]=player.marker;
             return true;
         }
@@ -85,13 +87,22 @@ const game = (() =>{
 
     const returnGame = () => game;
 
-    return {resetGame, returnGame, checkWin, makeMove, incMovecount, getmoveCount, getFlag, alterFlag}
+    const checkGameOver = () => gameOver;
+
+    const makeGameOver = () =>{
+        gameOver=1;
+    }
+
+    return {resetGame, returnGame, checkWin, makeMove, incMovecount, getmoveCount, getFlag, alterFlag, checkGameOver, makeGameOver}
 
 })();
 
 const player = (marker)=>{
-    this.marker = marker;
-    this.score = 0;
+    score = 0;
+    const incScore = () => score++;
+    const getScore = () => score;
+
+    return {marker, incScore, getScore};
 }
 
 const play = (()=>{
@@ -103,32 +114,42 @@ const play = (()=>{
 
     document.getElementById('gameboard').addEventListener('click', (e)=>{
 
+        if (game.checkGameOver()){
+            return;
+        }
+
         let block = e.target;
         let title_id = block.id;
-/*
-        console.log(block)
-        console.log( block.hasChildNodes())*/
-        if (!(block.hasChildNodes()) && block.tagName!='IMG'){
+        let player;
+
+        if (!(block.hasChildNodes()) && block.tagName!='IMG'){ // doesn't add img as the child of the images
             if (game.getFlag()){
                 const guava = document.createElement('img');
                 guava.src='icons/guava_11807818.png'; // X // 1
                 guava.classList.add('responsive-img'); 
-                
+                player = player1;
+
                 block.appendChild(guava);
-                console.log(block);
             }else{
                 const water_melon = document.createElement('img');
                 water_melon.src='icons/water-melon_7783973.png'; // O // 0
                 water_melon.classList.add('responsive-img');
+                player = player2;
 
                 block.appendChild(water_melon);
             }
-            game.alterFlag()
-            game.incMovecount()
-        }
+            game.alterFlag();
+            game.incMovecount();
+            game.makeMove(player, title_id);
+            //console.log(game.returnGame());
+        
 
-        if (game.getmoveCount()>4){
-            game.checkWin(player.marker)
+            if (game.getmoveCount()>4 && game.checkWin(player.marker)){
+                player.incScore();
+                document.getElementById(player.marker).textContent=player.getScore();
+                game.makeGameOver();
+                return;
+            }
         }
 
     })
